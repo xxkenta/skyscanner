@@ -147,4 +147,3 @@ async function main() {
 }
 
 main();
-//getSessionResults("1774c3c6-6450-4880-a6ea-6605d5c171ec")
