@@ -3,25 +3,10 @@ var moment = require('moment');
 var fs = require('fs')
 
 var API_KEY = "9c2dbdc77bmsh7a047233ef3551ep10bea6jsna1a8be0d5d8e"
-
-var origin = {
-                "PlaceId":"JFK-sky",
-                "PlaceName":"New York John F. Kennedy",
-                "CountryId":"US-sky",
-                "RegionId":"NY",
-                "CityId":"NYCA-sky",
-                "CountryName":"United States"
-            }
-
-var dest = {
-                "PlaceId":"DPS-sky",
-                "PlaceName":"Bali (Denpasar)",
-                "CountryId":"ID-sky",
-                "RegionId":"",
-                "CityId":"DPSI-sky",
-                "CountryName":"Indonesia"
-            }
-
+//this needs to be set to where you want to leave from
+var originPlace = "JFK-sky"
+//this is where you want to travel to
+var destinationPlace = "DPS-sky"
 
 function createSession(leaveDate, returnDate) {
     var req = unirest("POST", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0");
@@ -40,8 +25,8 @@ function createSession(leaveDate, returnDate) {
         "country": "US",
         "currency": "USD",
         "locale": "en-US",
-        "originPlace": "JFK-sky",
-        "destinationPlace": "DPS-sky",
+        "originPlace": originPlace,
+        "destinationPlace": destinationPlace,
         "outboundDate": leaveDate,
         "adults": "1"
     });
@@ -60,7 +45,6 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 function generateDateRanges(earliestLeaveDate, latestLeaveDate, duration, durationFlexibility){
     var dateRanges = []
@@ -86,8 +70,8 @@ function getSessionResults(sessionkey){
     req.query({
         "sortType": "price",
         "sortOrder": "asc",
-        "originAirports": "JFK-sky",
-        "destinationAirports": "DPS-sky",
+        "originAirports": originPlace,
+        "destinationAirports": destinationPlace,
         "pageIndex": "0",
         "pageSize": "10"
     });
@@ -111,6 +95,8 @@ function getSessionResults(sessionkey){
 }
 
 async function main() {
+    //Months in javascript are zero indexed... 0 is january, 01 is february... etc
+    //generateDateRanges(earliestLeaveDate, latestLeaveDate, tripDuration, flexibilityOfDuration)
     var dates = await generateDateRanges(new Date(2020, 01, 15), new Date(2020, 01, 19), 21, 2)
     var success = false
     for (i = 0; i < dates.length; i++){
@@ -142,8 +128,6 @@ async function main() {
     data = JSON.stringify(dates)
     fs.writeFileSync('price-data.json', data) 
 
-
-    
 }
 
 main();
