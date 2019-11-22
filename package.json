@@ -1,0 +1,24 @@
+{
+  "name": "skyscanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scanner.js",
+  "dependencies": {},
+  "devDependencies": {
+    "moment": "^2.24.0",
+    "unirest": "^0.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxkenta/skyscanner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xxkenta/skyscanner/issues"
+  },
+  "homepage": "https://github.com/xxkenta/skyscanner#readme"
+}
