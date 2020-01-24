@@ -6,7 +6,7 @@ var API_KEY = "9c2dbdc77bmsh7a047233ef3551ep10bea6jsna1a8be0d5d8e"
 //this needs to be set to where you want to leave from
 var originPlace = "JFK-sky"
 //this is where you want to travel to
-var destinationPlace = "DPS-sky"
+var destinationPlace = "SCL-sky"
 
 function createSession(leaveDate, returnDate) {
     var req = unirest("POST", "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0");
@@ -97,7 +97,7 @@ function getSessionResults(sessionkey){
 async function main() {
     //Months in javascript are zero indexed... 0 is january, 01 is february... etc
     //generateDateRanges(earliestLeaveDate, latestLeaveDate, tripDuration, flexibilityOfDuration)
-    var dates = await generateDateRanges(new Date(2020, 01, 15), new Date(2020, 01, 19), 21, 2)
+    var dates = await generateDateRanges(new Date(2020, 11, 5), new Date(2020, 11, 12), 12, 2)
     var success = false
     for (i = 0; i < dates.length; i++){
         while(!success){
